@@ -10,7 +10,7 @@
   "author": "German Robayo",
   "license": "ISC",
   "repository": {
-    "git": "."
+    "git": "https://github.com/german1608/js-calculator.git"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
