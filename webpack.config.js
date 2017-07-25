@@ -1,0 +1,43 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  // entry: es la que decide que se va a colocar en el dist. en app.js por ejemplo se decidira que se va a usar
+  // entre css blabla
+  entry: './src/app.js',
+  // el output en un solo archivo
+  output: {
+    filename: 'bundle.js', 
+    path: path.resolve(__dirname, 'dist')
+  },
+  // module.rules contiene las reglas o mandatos que ejecutara webpack cada vez que lo ejecutemos
+  module: {
+    rules: [
+      {
+        // para usar el css-loader
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.pug$/,
+        use: ['html-loader','pug-html-loader']
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: "babel-loader"
+      }
+    ]
+  },
+  devServer: {
+    contentBase: './dist'
+  },
+  // plugins para html
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.pug'
+    })
+  ]
+}
