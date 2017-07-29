@@ -1,0 +1,91 @@
+$bg-color: #6666fe;
+$calc-color: #ff6600;
+$red: #ff0000;
+$screen-color: #666666;
+$btn-size: 3rem;
+$rel: 0.652153;
+$calc-height: 90vh;
+$btn-width: 25%;
+$btn-height: 100/7%;
+$font-family: 'Lato', Arial;
+$screen-size: 30%;
+
+body {
+  font-family: $font-family;
+  height: 96vh;
+  background-color: $bg-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  box-sizing: border-box;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+
+  height: $calc-height;
+  width: $rel*$calc-height;
+  border-radius: 2rem;
+  background-color: $calc-color;
+  .screen {
+    background-color: $screen-color;
+    height: $screen-size;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: .8rem;
+    h1#number-typed {
+      text-align: right;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    h2#prev-calc {
+      text-align: right;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+  }
+  .buttons {
+    display: grid;
+    height: 100% - $screen-size;
+    grid-template-rows: repeat(5, calc(20% - .605rem));
+    grid-template-columns: repeat(4, calc(25% - .605rem));
+    grid-gap: .8rem;
+    grid-template-areas: 
+    "ac c div mult"
+    "seven eight nine diff"
+    "four five six plus"
+    "one two three equal"
+    "zero zero dot equal";
+    justify-content: center;
+    .btn {
+      border:none;
+      background-color: #fff;
+      font-size: 1.2rem;
+      padding-left: 0;
+      padding-right: 0;
+      font-family: $font-family;
+      font-weight: 900;
+      text-align: center;
+      color: black;
+    }
+    .btn.red {
+      color: $red;
+    }
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+  font-weight: 300;
+  letter-spacing: .5px;
+  margin-bottom: 0;
+}
