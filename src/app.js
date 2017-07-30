@@ -197,7 +197,6 @@ btns.forEach(button => button.addEventListener('click', (e) => {
     }
     lastOperation = key;
   }
-  console.log(`prevNumber: ${prevNumber}, currNumber: ${currNumber}, lastOperation: ${lastOperation}, key: ${key}`);
 }));
 
 btns.forEach(button => button.addEventListener('transitionend', (e) => {
