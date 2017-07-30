@@ -76,6 +76,7 @@ const numberTyped = _id('number-typed');
 // Final operation
 let currNumber = "0";
 let prevNumber = "0";
+let lastOperation = "ac";
 
 /************************/
 /*      Main Script     */
@@ -116,7 +117,6 @@ btns.forEach(button => button.addEventListener('click', (e) => {
   } else { // It's a symbol
 
     const lastLetter = prevNumber[prevNumber.length - 1];
-
     switch(key) {
       // These cases are straightforward
       case "c": 
@@ -142,25 +142,27 @@ btns.forEach(button => button.addEventListener('click', (e) => {
       case "/":
       case "-":
       case "×":
-        // If the user already typed an operator. TO FIX!!
-        if (linearSearch(lastLetter, operators)) {
+        if (lastOperation === "=") {
+          prevNumber += key;
+          prevCalc.innerText = prevNumber;
+        }
+        // If the user already typed an operator.
+        else if (linearSearch(lastLetter, operators)) {
           if (currNumber === "0") return;
           prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
           prevCalc.innerText = prevNumber + key;
           currNumber = "0";
           numberTyped.innerText = prevNumber;
           prevNumber += key;
-          return;
         }
 
-        if (currNumber === "0" || currNumber === "0.") {
-          return;
-        }
-
+        else if (currNumber === "0" || currNumber === "0.") {
+        } else {
         prevNumber = currNumber + key;
         currNumber = "0";
         prevCalc.innerText = prevNumber;
         numberTyped.innerText = currNumber;
+        }
         break;
 
 
@@ -170,14 +172,14 @@ btns.forEach(button => button.addEventListener('click', (e) => {
           currNumber += "0";
         }
         // There's an operation in process.
-        if (linearSearch(lastLetter, operators)) {
+        else if (linearSearch(lastLetter, operators)) {
 
           /* The following line does this:
             * replaces × for a *
             * them eval() the expression
             * finally just takes the 3 last decimal digits.
           */
-          prevNumber = fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3);
+          prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
           prevCalc.innerText = prevNumber;
           currNumber = "0";
           numberTyped.innerText = prevNumber;
@@ -193,7 +195,9 @@ btns.forEach(button => button.addEventListener('click', (e) => {
       default:
         break
     }
+    lastOperation = key;
   }
+  console.log(`prevNumber: ${prevNumber}, currNumber: ${currNumber}, lastOperation: ${lastOperation}, key: ${key}`);
 }));
 
 btns.forEach(button => button.addEventListener('transitionend', (e) => {
