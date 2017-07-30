@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
   head
     title Calculator
-    link(href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet")
+    //- link(href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
   body
     .app
@@ -11,21 +11,21 @@ html(lang="en")
         h2#prev-calc 0
       .buttons
         button.btn.red(data-key="ac" style="grid-area: ac") AC
-        button.btn.red(data-key="ce" style="grid-area: c") C
-        button.btn(data-key="div" style="grid-area: div") /
-        button.btn(data-key="mult" style="grid-area: mult") x
+        button.btn.red(data-key="c" style="grid-area: c") C
+        button.btn(data-key="/" style="grid-area: div") /
+        button.btn(data-key="×" style="grid-area: mult") ×
         button.btn(data-key="7" style="grid-area: seven") 7
         button.btn(data-key="8" style="grid-area: eight") 8
         button.btn(data-key="9" style="grid-area: nine") 9
-        button.btn(data-key="diff" style="grid-area: diff") -
+        button.btn(data-key="-" style="grid-area: diff") -
         button.btn(data-key="4" style="grid-area: four") 4
         button.btn(data-key="5" style="grid-area: five") 5
         button.btn(data-key="6" style="grid-area: six") 6
-        button.btn(data-key="plus" style="grid-area: plus") +
+        button.btn(data-key="+" style="grid-area: plus") +
         button.btn(data-key="1" style="grid-area: one") 1
         button.btn(data-key="2" style="grid-area: two") 2
         button.btn(data-key="3" style="grid-area: three") 3
-        button.btn(data-key="equal" style="grid-area: equal") =
+        button.btn(data-key="=" style="grid-area: equal") =
         button.btn(data-key="0" style="grid-area: zero") 0
-        button.btn(data-key="dot" style="grid-area: dot") .
+        button.btn(data-key="." style="grid-area: dot") .
     h5.footer Made by German Robayo
