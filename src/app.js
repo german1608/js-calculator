@@ -112,6 +112,8 @@ btns.forEach(button => button.addEventListener('click', (e) => {
     } else if (!numberTyped.className && currNumber.length >= 8) {
       numberTyped.classList.add('small');
     }
+
+    // This is the fix for the issue #1
     if (lastOperation === "=") {
       prevNumber = "0";
       prevCalc.innerText = prevNumber;
