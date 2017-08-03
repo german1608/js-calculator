@@ -12,13 +12,16 @@ module.exports = {
   // module.rules contiene las reglas o mandatos que ejecutara webpack cada vez que lo ejecutemos
   module: {
     rules: [
+      
       {
-        // para usar el css-loader
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        test: /\.scss$/,
+        use: [{
+            loader: "style-loader" // creates style nodes from JS strings
+        }, {
+            loader: "css-loader" // translates CSS into CommonJS
+        }, {
+            loader: "sass-loader" // compiles Sass to CSS
+        }]
       },
       {
         test: /\.pug$/,
