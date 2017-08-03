@@ -112,6 +112,11 @@ btns.forEach(button => button.addEventListener('click', (e) => {
     } else if (!numberTyped.className && currNumber.length >= 8) {
       numberTyped.classList.add('small');
     }
+    if (lastOperation === "=") {
+      prevNumber = "0";
+      prevCalc.innerText = prevNumber;
+      lastOperation = "ca";
+    }
     numberTyped.innerText = currNumber;
 
   } else { // It's a symbol
@@ -197,6 +202,12 @@ btns.forEach(button => button.addEventListener('click', (e) => {
     }
     lastOperation = key;
   }
+  console.log({
+    key,
+    lastOperation,
+    currNumber,
+    prevNumber
+  })
 }));
 
 btns.forEach(button => button.addEventListener('transitionend', (e) => {
