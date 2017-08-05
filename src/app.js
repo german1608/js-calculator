@@ -82,6 +82,10 @@ const errLog = (message) => {
   clearTimeout(idTimer);
   messageLog.innerText = message;
   messageLog.classList.add('active');
+  currNumber = "0";
+  prevNumber = "0";
+  prevCalc.innerText = prevNumber;
+  numberTyped.innerText = currNumber;
   idTimer = setTimeout(() => {
     messageLog.classList.remove('active');
   }, 2500);
@@ -112,8 +116,10 @@ btns.forEach(button => button.addEventListener('click', (e) => {
   button.classList.add('active');
   // Check if it's a number.
   if (parseInt(key) || key == 0 || key === '.') {
-    // Max number size
+    // Max number size, issue #4
     if (currNumber.length === 10) {
+      errLog('Max number of digits is 10.');
+      key = "ca";
       return;
     }
     
@@ -180,10 +186,16 @@ btns.forEach(button => button.addEventListener('click', (e) => {
         else if (linearSearch(lastLetter, operators)) {
           if (currNumber === "0") return;
           prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
-          prevCalc.innerText = prevNumber + key;
-          currNumber = "0";
-          numberTyped.innerText = prevNumber;
-          prevNumber += key;
+          // Solution to issue #4
+          if (prevNumber.length > 10) {
+            errLog('Max number of digits is 10.');
+            key = "ca";
+          } else {
+            prevCalc.innerText = prevNumber + key;
+            currNumber = "0";
+            numberTyped.innerText = prevNumber;
+            prevNumber += key;
+          }
         }
 
         else if (currNumber === "0" || currNumber === "0.") {
@@ -213,17 +225,17 @@ btns.forEach(button => button.addEventListener('click', (e) => {
           // Solution to Issue #2
           if (lastLetter === "/" && (currNumber === "0" || currNumber === "0.")) {
             errLog('Division by zero is not allowed.');
-            currNumber = "0";
-            prevNumber = "0";
-            prevCalc.innerText = prevNumber;
-            numberTyped.innerText = currNumber;
             key = "ca";
-
           } else {
             prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
-            prevCalc.innerText = prevNumber;
-            currNumber = "0";
-            numberTyped.innerText = prevNumber;
+            if (prevNumber.length > 10 ) {
+              errLog('Max number of digits is 10.');
+              key = "ca";
+            } else {
+              prevCalc.innerText = prevNumber;
+              currNumber = "0";
+              numberTyped.innerText = prevNumber;
+            }
           }
 
         } else { // If it's just pressing = without making a real operation.
