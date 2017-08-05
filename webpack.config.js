@@ -35,6 +35,9 @@ module.exports = {
     ]
   },
   devServer: {
+    // The following 2 lines enable to check it via IP
+    host: "0.0.0.0",
+    disableHostCheck: true,
     contentBase: './dist'
   },
   // plugins para html
