@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
+    "push": "./node_modules/push-dir/bin/push-dir.js --dir=dist --branch=gh-pages --cleanup",
     "prod": "webpack -p"
   },
   "author": "German Robayo",
