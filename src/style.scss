@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .app {
@@ -129,8 +130,9 @@ body {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0px;
+  display: block;
+  position: absolute;
+  bottom: 0%;
   font-family: 'Lato';
   font-weight: 300;
   letter-spacing: .5px;
