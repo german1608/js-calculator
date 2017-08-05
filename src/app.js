@@ -67,16 +67,39 @@ const fixNumber = (number, n) => {
   return Math.round(m * number) / m;
 }
 
+const errLog = (message) => {
+  /*
+    Description:
+      Function that shows a error to the users when some
+      action is forbidden, e.g division by zero.
+
+    Parameters:
+      message: A string that contains the message to show
+
+    Return:
+      undefined
+    */
+  clearTimeout(idTimer);
+  messageLog.innerText = message;
+  messageLog.classList.add('active');
+  idTimer = setTimeout(() => {
+    messageLog.classList.remove('active');
+  }, 2500);
+}
+
 // Operators of the calculator
 const operators = ['+', '-', '×', '/'];
 // Get all buttons of the calculator
 const btns = _('.btn');
 const prevCalc = _id('prev-calc');
 const numberTyped = _id('number-typed');
+const messageLog = _id('message');
+
 // Final operation
 let currNumber = "0";
 let prevNumber = "0";
 let lastOperation = "ac";
+let idTimer;
 
 /************************/
 /*      Main Script     */
@@ -85,7 +108,7 @@ let lastOperation = "ac";
 // Let's listen for click events
 btns.forEach(button => button.addEventListener('click', (e) => {
   
-  const key = button.dataset.key;
+  let key = button.dataset.key;
   button.classList.add('active');
   // Check if it's a number.
   if (parseInt(key) || key == 0 || key === '.') {
@@ -165,10 +188,10 @@ btns.forEach(button => button.addEventListener('click', (e) => {
 
         else if (currNumber === "0" || currNumber === "0.") {
         } else {
-        prevNumber = currNumber + key;
-        currNumber = "0";
-        prevCalc.innerText = prevNumber;
-        numberTyped.innerText = currNumber;
+          prevNumber = currNumber + key;
+          currNumber = "0";
+          prevCalc.innerText = prevNumber;
+          numberTyped.innerText = currNumber;
         }
         break;
 
@@ -186,10 +209,22 @@ btns.forEach(button => button.addEventListener('click', (e) => {
             * them eval() the expression
             * finally just takes the 3 last decimal digits.
           */
-          prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
-          prevCalc.innerText = prevNumber;
-          currNumber = "0";
-          numberTyped.innerText = prevNumber;
+
+          // Solution to Issue #2
+          if (lastLetter === "/" && (currNumber === "0" || currNumber === "0.")) {
+            errLog('Division by zero is not allowed.');
+            currNumber = "0";
+            prevNumber = "0";
+            prevCalc.innerText = prevNumber;
+            numberTyped.innerText = currNumber;
+            key = "ca";
+
+          } else {
+            prevNumber = JSON.stringify(fixNumber(eval((prevNumber + currNumber).replace(/×/, "*")), 3));
+            prevCalc.innerText = prevNumber;
+            currNumber = "0";
+            numberTyped.innerText = prevNumber;
+          }
 
         } else { // If it's just pressing = without making a real operation.
 
