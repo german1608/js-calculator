@@ -4,7 +4,7 @@ $red: #ff0000;
 $screen-color: #666666;
 $btn-size: 3rem;
 $rel: 0.652153;
-$calc-width: 90vw;
+$calc-width: 80vw;
 $btn-width: 25%;
 $btn-height: 100/7%;
 $font-family: 'Lato', Arial;
@@ -25,6 +25,7 @@ body {
   box-sizing: border-box;
   padding: 2rem;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-around;
   align-content: center;
@@ -42,7 +43,26 @@ body {
     width: $calc-width;
     height: 1 / $rel * $calc-width;
   }
-
+  #message {
+    white-space: nowrap; /* This line is to restrict to one line */
+    opacity: 0;
+    margin-top: 0;
+    margin-left:0;
+    position: absolute;
+    top: calc(100% + 5px) ;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity .5s ease;
+    background-color: red;
+    color: white;
+    font-weight: 900;
+    padding: 2px 5px;
+    border-radius: 5px;
+    text-align: center;
+    &.active {
+      opacity: 1;
+    }
+  }
   border-radius: 2rem;
   background-color: $calc-color;
   .screen {
@@ -109,8 +129,8 @@ body {
 }
 
 .footer {
-  position: absolute;
-  bottom: 3px;
+  position: fixed;
+  bottom: 0px;
   font-family: 'Lato';
   font-weight: 300;
   letter-spacing: .5px;
